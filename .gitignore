@@ -1,0 +1,6 @@
+*~
+.DS_Store
+UserInterfaceState.xcuserstate
+remote_push.iml
+.idea
+app/constants/IdConst.go
