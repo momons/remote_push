@@ -34,8 +34,10 @@ func (service *ApiService) setup() bool {
 	service.api = rest.NewApi()
 	service.api.Use(rest.DefaultDevStack...)
 	router, err := rest.MakeRouter(
-		// トークン取得
+		// トークン登録
 		&rest.Route{"POST", "/register_token", GetRegisterToken().Recive},
+		// メッセージ登録
+		&rest.Route{"POST", "/register_message", GetRegisterMessage().Recive},
 	)
 	if err != nil {
 		log.Fatal(err)
