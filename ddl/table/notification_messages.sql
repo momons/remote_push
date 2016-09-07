@@ -7,7 +7,7 @@ CREATE TABLE notification_messages (
     -- 通知コード
     notification_code VARCHAR(64) NOT NULL,
     -- 送信日時
-    send_at TIMESTAMP NOT NULL,
+    send_at CHAR(14) NOT NULL,
     -- プラットフォーム
     platform VARCHAR(64) NOT NULL,
     -- 送信メッセージ

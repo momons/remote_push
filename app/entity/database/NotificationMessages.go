@@ -14,15 +14,15 @@ type NotificationMessages struct {
 	// 通知コード.
 	NotificationCode string `db:"notification_code"`
 	// 送信日時.
-	SendAt time.Time `db:"send_at"`
+	SendAt string `db:"send_at"`
 	// プラットフォーム.
-	platform string `db:"platform"`
+	Platform string `db:"platform"`
 	// 送信メッセージ.
-	message string `db:"message"`
+	Message string `db:"message"`
 	// 送信条件 (JSON).
-	send_condition string `db:"send_condition"`
+	SendCondition string `db:"send_condition"`
 	// 送信済み.
-	is_send string `db:"is_send"`
+	IsSend string `db:"is_send"`
 	// 更新日時.
 	UpdateAt time.Time `db:"update_at"`
 	// 作成日時.

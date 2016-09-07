@@ -14,9 +14,9 @@ type NotificationUsers struct {
 	// 通知トークン.
 	NotificationToken string `db:"notification_token"`
 	// プラットフォーム.
-	platform string `db:"platform"`
+	Platform string `db:"platform"`
 	// カスタムパラメータ.
-	custom_params string `db:"custom_params"`
+	CustomParams string `db:"custom_params"`
 	// 更新日時.
 	UpdateAt time.Time `db:"update_at"`
 	// 作成日時.
