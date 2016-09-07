@@ -3,6 +3,7 @@ package main
 import (
 	"./manager"
 	"./service/api"
+	"./service/polling"
 	"flag"
 	"os"
 )
@@ -10,9 +11,6 @@ import (
 // コマンド情報
 // APIポート番号
 var apiPort int
-
-// ポーリングポート番号
-var pollingPort int
 
 // 終了コード
 var exitCode = 0
@@ -40,6 +38,10 @@ func setup() bool {
 	if !isSuccess {
 		return false
 	}
+
+	// ポーリング
+	pollingService := polling.GetPollingService()
+	go pollingService.Start()
 
 	// API
 	apiService := api.GetApiService()

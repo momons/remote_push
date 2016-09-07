@@ -44,6 +44,24 @@ func (manager *NotificationUsers) Select(
 	return &entity
 }
 
+// 全てのユーザ取得
+func (manager *NotificationUsers) SelectAllUsers() *[]database.NotificationUsers {
+
+	var entities []database.NotificationUsers
+
+	err := Db.Order(
+		"update_at DESC",
+	).Find(
+		&entities,
+	).Error
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
+
+	return &entities
+}
+
 // 削除＆作成.
 func (manager *NotificationUsers) UpdateInsert(
 	notificationCode string,

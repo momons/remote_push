@@ -1,6 +1,7 @@
 package database
 
 import (
+	"../../constants"
 	"github.com/jinzhu/gorm"
 	"time"
 )
@@ -26,4 +27,14 @@ type NotificationUsers struct {
 // セットアップ.
 func SetupNotificationUsers(db *gorm.DB) {
 	db.AutoMigrate(&NotificationUsers{})
+}
+
+// プラットフォームがiOSか
+func (entity *NotificationUsers) IsiOS() bool {
+	return entity.Platform == constants.PlatformTypeiOS
+}
+
+// プラットフォームがAndroidか
+func (entity *NotificationUsers) IsAndroid() bool {
+	return entity.Platform == constants.PlatformTypeAndroid
 }

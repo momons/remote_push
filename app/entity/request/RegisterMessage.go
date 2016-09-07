@@ -13,7 +13,7 @@ type RegisterMessage struct {
 }
 
 func (entity *RegisterMessage) Convert(
-object map[string]interface{},
+	object map[string]interface{},
 ) {
 	if value, ok := object["notificationCode"].(string); ok {
 		entity.NotificationCode = value

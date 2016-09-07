@@ -3,6 +3,7 @@ package manager
 import (
 	"../constants"
 	"../entity/database"
+	"../util"
 	"github.com/satori/go.uuid"
 	"log"
 	"time"
@@ -21,6 +22,31 @@ func GetNotificationMessages() *NotificationMessages {
 		instanceNotificationMessages = &NotificationMessages{}
 	}
 	return instanceNotificationMessages
+}
+
+// 未送信メッセージ取得
+func (manager *NotificationMessages) SelectUnSent() *[]database.NotificationMessages {
+
+	var entities []database.NotificationMessages
+
+	// 現在時刻を変換
+	nowAt := util.StringFromDate(time.Now())
+
+	err := Db.Where(
+		"(send_at <= ? OR send_at = '') AND is_send = ?",
+		nowAt,
+		constants.SendTypeNone,
+	).Order(
+		"send_at",
+	).Find(
+		&entities,
+	).Error
+	if err != nil {
+		log.Println(err)
+		return nil
+	}
+
+	return &entities
 }
 
 // 通知コード、トークンより取得
@@ -107,4 +133,35 @@ func (manager *NotificationMessages) UpdateInsert(
 	Db.Commit()
 
 	return true, messageCode
+}
+
+// 送信フラグを送信済みに更新.
+func (manager *NotificationMessages) UpdateSendFlag(
+	messageCode string,
+) bool {
+
+	Db.Begin()
+
+	nowAt := time.Now()
+
+	// メッセージコードの指定がある場合
+	entity := manager.Select(messageCode)
+	if entity == nil {
+		Db.Rollback()
+		return false
+	}
+
+	// 更新
+	entity.IsSend = constants.SendTypeSent
+	entity.UpdateAt = nowAt
+	err := Db.Update(entity).Error
+	if err != nil {
+		log.Println(err)
+		Db.Rollback()
+		return false
+	}
+
+	Db.Commit()
+
+	return true
 }

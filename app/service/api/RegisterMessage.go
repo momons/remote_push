@@ -25,7 +25,7 @@ var instanceRegisterMessage *RegisterMessage
 func GetRegisterMessage() *RegisterMessage {
 	if instanceRegisterMessage == nil {
 		instanceRegisterMessage = &RegisterMessage{
-			notificationsManager:     manager.GetNotifications(),
+			notificationsManager:        manager.GetNotifications(),
 			notificationMessagesManager: manager.GetNotificationMessages(),
 		}
 	}

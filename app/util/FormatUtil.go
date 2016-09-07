@@ -7,7 +7,7 @@ import (
 
 const (
 	// 日付フォーマット.
-	DateFormatString = "2006/01/02 15:04:05 MST"
+	DateFormatString = "20060102150405"
 )
 
 // 文字列を日付型に変換.
