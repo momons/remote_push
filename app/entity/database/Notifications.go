@@ -13,10 +13,12 @@ type Notifications struct {
 	NotificationCode string `db:"notification_code"`
 	// 通知名.
 	NotificationName string `db:"notification_name"`
-	// pemファイル名(iOS).
-	PemFileName string `db:"pem_file_name"`
+	// certファイル名(iOS).
+	CertFileName string `db:"cert_file_name"`
+	// keyファイル名(iOS).
+	KeyFileName string `db:"key_file_name"`
 	// APIキー(Android).
-	apiKey string `db:"api_key"`
+	ApiKey string `db:"api_key"`
 	// 更新日時.
 	UpdateAt time.Time `db:"update_at"`
 	// 作成日時.

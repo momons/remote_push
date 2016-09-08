@@ -10,7 +10,7 @@ CREATE TABLE notification_messages (
     send_at CHAR(14) NOT NULL,
     -- プラットフォーム
     platform VARCHAR(64) NOT NULL,
-    -- 送信メッセージ
+    -- 送信メッセージ (JSON)
     message TEXT NOT NULL,
     -- 送信条件 (JSON)
     send_condition TEXT NOT NULL,

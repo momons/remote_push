@@ -7,7 +7,7 @@ type RegisterToken struct {
 	// トークン.
 	Token string `json:"token"`
 	// カスタムパラメータ.
-	CustomParams string `json:"custom_params"`
+	CustomParams string `json:"customParams"`
 }
 
 func (entity *RegisterToken) Convert(
@@ -19,7 +19,7 @@ func (entity *RegisterToken) Convert(
 	if value, ok := object["token"].(string); ok {
 		entity.Token = value
 	}
-	if value, ok := object["custom_params"].(string); ok {
+	if value, ok := object["customParams"].(string); ok {
 		entity.CustomParams = value
 	}
 }

@@ -6,8 +6,10 @@ CREATE TABLE notifications (
     notification_code VARCHAR(64) NOT NULL,
     -- 通知名
     notification_name VARCHAR(256) NOT NULL,
-    -- pemファイル名(iOS)
-    pem_file_name VARCHAR(256) NOT NULL,
+    -- certファイル名(iOS)
+    cert_file_name VARCHAR(256) NOT NULL,
+    -- keyファイル名(iOS)
+    key_file_name VARCHAR(256) NOT NULL,
     -- APIキー(Android)
     api_key VARCHAR(256) NOT NULL,
     -- 更新日時
