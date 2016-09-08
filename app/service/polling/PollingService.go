@@ -42,7 +42,7 @@ func (service *PollingService) Start() {
 
 		// 送信対象メッセージ取得
 		messages := service.notificationMessagesManager.SelectUnSent()
-		if messages != nil {
+		if messages != nil && len(*messages) > 0 {
 
 			// 送信対象者取得
 			users := service.notificationUsersManager.SelectAllUsers()

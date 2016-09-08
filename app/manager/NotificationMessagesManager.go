@@ -7,6 +7,7 @@ import (
 	"github.com/satori/go.uuid"
 	"log"
 	"time"
+	"github.com/jinzhu/gorm"
 )
 
 // 通知メッセージデータ用マネージャ.
@@ -63,7 +64,9 @@ func (manager *NotificationMessages) Select(
 		&entity,
 	).Error
 	if err != nil {
-		log.Println(err)
+		if err != gorm.ErrRecordNotFound {
+			log.Println(err)
+		}
 		return nil
 	}
 

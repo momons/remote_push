@@ -3,6 +3,7 @@ package manager
 import (
 	"../entity/database"
 	"log"
+	"github.com/jinzhu/gorm"
 )
 
 // 通知マスタ用マネージャ.
@@ -34,7 +35,9 @@ func (manager *Notifications) Select(
 		&entity,
 	).Error
 	if err != nil {
-		log.Println(err)
+		if err != gorm.ErrRecordNotFound {
+			log.Println(err)
+		}
 		return nil
 	}
 

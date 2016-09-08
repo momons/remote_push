@@ -4,6 +4,7 @@ import (
 	"../entity/database"
 	"log"
 	"time"
+	"github.com/jinzhu/gorm"
 )
 
 // 通知ユーザデータ用マネージャ.
@@ -37,7 +38,9 @@ func (manager *NotificationUsers) Select(
 		&entity,
 	).Error
 	if err != nil {
-		log.Println(err)
+		if err != gorm.ErrRecordNotFound {
+			log.Println(err)
+		}
 		return nil
 	}
 
@@ -62,7 +65,7 @@ func (manager *NotificationUsers) SelectAllUsers() *[]database.NotificationUsers
 	return &entities
 }
 
-// 削除＆作成.
+// 更新＆作成.
 func (manager *NotificationUsers) UpdateInsert(
 	notificationCode string,
 	notificationToken string,
@@ -70,7 +73,7 @@ func (manager *NotificationUsers) UpdateInsert(
 	customParams string,
 ) bool {
 
-	Db.Begin()
+	db := Db.Begin()
 
 	nowAt := time.Now()
 
@@ -80,10 +83,15 @@ func (manager *NotificationUsers) UpdateInsert(
 		entity.Platform = platform
 		entity.CustomParams = customParams
 		entity.UpdateAt = nowAt
-		err := Db.Update(entity).Error
+		err := db.Where(
+			"id = ?",
+			entity.Id,
+		).Table(
+			"notification_users",
+		).Update(entity).Error
 		if err != nil {
 			log.Println(err)
-			Db.Rollback()
+			db.Rollback()
 			return false
 		}
 	} else {
@@ -95,15 +103,15 @@ func (manager *NotificationUsers) UpdateInsert(
 			UpdateAt:          nowAt,
 			CreateAt:          nowAt,
 		}
-		err := Db.Create(&insertEntity).Error
+		err := db.Create(&insertEntity).Error
 		if err != nil {
 			log.Println(err)
-			Db.Rollback()
+			db.Rollback()
 			return false
 		}
 	}
 
-	Db.Commit()
+	db.Commit()
 
 	return true
 }

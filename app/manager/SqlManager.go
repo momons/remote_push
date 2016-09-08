@@ -24,7 +24,7 @@ func SetupDatabase() bool {
 	db.DB()
 
 	// デバッグモード.
-	//db.LogMode(getParamBool("db.debug"))
+	db.LogMode(true)
 
 	// 退避
 	Db = db
